@@ -25,6 +25,7 @@ matrix:
       - psql -c "set timezone TO 'GMT';" -U postgres
       - pip install pip --upgrade
       - pip install setuptools --upgrade
+      - pip install google-compute-engine
       - python setup.py develop
       - pip install .[tests]
       - pip install coveralls
