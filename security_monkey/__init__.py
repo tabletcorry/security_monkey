@@ -335,3 +335,13 @@ def setup_logging():
 
 
 setup_logging()
+
+
+### Sentry ###
+sentry = None
+try:
+    from raven.contrib.flask import Sentry
+    sentry = Sentry()
+    sentry.init_app(app)
+except ImportError as e:
+    app.logger.debug('Sentry not installed, skipping...')
