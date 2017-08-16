@@ -61,4 +61,4 @@ secmonkey.env
 *.crt
 *.key
 postgres-data/
-env-config/config.py
+docker-compose.override.yml
