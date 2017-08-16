@@ -19,7 +19,6 @@
 .. moduleauthor:: Patrick Kelley <pkelley@netflix.com> @monkeysecurity
 
 """
-
 from security_monkey.watchers.sns import SNS
 from security_monkey.auditors.resource_policy_auditor import ResourcePolicyAuditor
 from policyuniverse.arn import ARN
