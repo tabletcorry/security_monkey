@@ -20,10 +20,10 @@
 
 """
 from security_monkey.auditor import Auditor
-from security_monkey.common.arn import ARN
 from security_monkey.datastore import NetworkWhitelistEntry
 from security_monkey.watchers.elasticsearch_service import ElasticSearchService
 
+from policyuniverse.arn import ARN
 import ipaddr
 
 

@@ -285,6 +285,12 @@ class Item(db.Model):
         deferred=True
     )
 
+    @hybrid_property
+    def config(self):
+        """Returns the config from the latest item revision."""
+        return db.session.query(ItemRevision
+            ).filter(ItemRevision.id==self.latest_revision_id).one().config
+
 
 class ItemComment(db.Model):
     """

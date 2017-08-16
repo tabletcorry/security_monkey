@@ -20,13 +20,13 @@
 
 """
 
-from security_monkey.common.arn import ARN
 from security_monkey.auditor import Auditor
 from security_monkey.watchers.sns import SNS
 from security_monkey.exceptions import InvalidARN
 from security_monkey.exceptions import InvalidSourceOwner
 from security_monkey.datastore import Account
 
+from policyuniverse.arn import ARN
 import re
 
 

@@ -24,6 +24,8 @@ from security_monkey.auditor import Auditor
 from security_monkey.watchers.s3 import S3
 from security_monkey.datastore import Account
 
+from policyuniverse.arn import ARN
+
 
 class S3Auditor(Auditor):
     index = S3.index
@@ -148,7 +150,6 @@ class S3Auditor(Auditor):
             print(traceback.print_exc())
 
     def process_cross_account(self, input, s3_item):
-        from security_monkey.common.arn import ARN
         arn = ARN(input)
 
         if arn.error and input != input:
