@@ -52,7 +52,7 @@ class ResourcePolicyAuditor(Auditor):
         if not self.OBJECT_STORE:
             app.logger.info('ResourcePolicyAuditor Filling in OBJECT_STORE')
             self._load_s3_buckets()
-            self._load_userids_usernames()
+            self._load_userids()
             self._load_accounts()
             self._load_vpcs()
             self._load_vpces()
@@ -90,20 +90,16 @@ class ResourcePolicyAuditor(Auditor):
                 add(cls.OBJECT_STORE['cidr'], address['private_ip'], gateway.account.identifier)
 
     @classmethod
-    def _load_userids_usernames(cls):
-        """Store the UserIDs from all IAMUsers and IAMRoles.
-        
-        TODO: Determine if username conditions are suitable."""
+    def _load_userids(cls):
+        """Store the UserIDs from all IAMUsers and IAMRoles."""
         user_results = cls._load_related_items('iamuser')
         role_results = cls._load_related_items('iamrole')
 
         for item in user_results:
             add(cls.OBJECT_STORE['userid'], item.config.get('UserId'), item.account.identifier)
-            add(cls.OBJECT_STORE['username'], item.config.get('UserName'), item.account.identifier)
 
         for item in role_results:
             add(cls.OBJECT_STORE['userid'], item.config.get('RoleId'), item.account.identifier)
-            add(cls.OBJECT_STORE['username'], item.config.get('RoleName'), item.account.identifier)
 
     @classmethod
     def _load_accounts(cls):
@@ -237,8 +233,6 @@ class ResourcePolicyAuditor(Auditor):
             return set([self.inspect_who_account(who.value, same)])
         if who.category == 'userid':
             return self.inspect_who_userid(who.value, same)
-        if who.category == 'username':
-            return self.inspect_who_username(who.value, same)
         if who.category == 'cidr':
             return self.inspect_who_cidr(who.value, same)
         if who.category == 'vpc':
@@ -266,9 +260,6 @@ class ResourcePolicyAuditor(Auditor):
         if account_number in self.OBJECT_STORE['ACCOUNTS']['THIRDPARTY']:
             return 'THIRDPARTY'
         return 'UNKNOWN'
-
-    def inspect_who_username(self, user_name, same):
-        return self.inspect_who_generic('username', user_name, same)
 
     def inspect_who_s3(self, bucket_name, same):
         return self.inspect_who_generic('s3', bucket_name, same)
