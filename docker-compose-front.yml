@@ -11,6 +11,8 @@ version: '2'
 services:
   api:
     image: "${SECURITY_MONKEY_ECS_IMAGE}:latest"
+    environment:
+      ECS_BUILD_TIME: "${ECS_BUILD_TIME}"
     env_file:
       - secmonkey.env
       - secmonkey.local.env

@@ -22,6 +22,8 @@ if [ -z "$AWS_REGION" ]; then
     AWS_REGION='us-west-2'
 fi
 
+export ECS_BUILD_TIME=$(date +%s)
+
 # Create the three task definitions
 ecs-cli compose --file docker-compose-worker.yml  -r ${AWS_REGION} --task-role-arn ${SECURITY_MONKEY_ECS_WORKER_ROLE} --aws-profile ${AWS_PROFILE} -p security_monkey_worker create
 ecs-cli compose --file docker-compose-front.yml  -r ${AWS_REGION} --task-role-arn ${SECURITY_MONKEY_ECS_FRONT_ROLE} --aws-profile ${AWS_PROFILE} -p security_monkey_fe create
