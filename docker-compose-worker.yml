@@ -23,4 +23,4 @@ services:
         awslogs-group: "${SECURITY_MONKEY_ECS_AWSLOGS_GROUP}"
         awslogs-region: "${AWS_REGION}"
         awslogs-stream-prefix: "worker"
-    mem_limit: 4096m
+    mem_limit: ${SECURITY_MONKEY_WORKER_MEMORY}
