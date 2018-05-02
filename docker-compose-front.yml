@@ -28,8 +28,8 @@ services:
     image: "${SECURITY_MONKEY_ECS_NGINX_IMAGE}:latest"
     working_dir: /etc/nginx
     ports:
-      - 80:80
-      - 443:443
+      - 80
+      - 443
     links:
       - api:smapi
     logging:
